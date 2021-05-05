@@ -1,0 +1,23 @@
+version: "3.5"
+services:
+#  Create a service named db.
+  database:
+#   Use the Docker Image postgres. This will pull the newest release.
+    image: "postgres"
+#   Give the container the name my_postgres. You can changes to something else.
+    container_name: "postgres"
+#   Setup the username, password, and database name. You can changes these values.
+    environment:
+      - POSTGRES_USER=cmb
+      - POSTGRES_PASSWORD=cmb
+      - POSTGRES_DB=bookstore
+#   Maps port 54320 (localhost) to port 5432 on the container. You can change the ports to fix your needs.
+    ports:
+      - "54320:5432"
+#   Set a volume some that database is not lost after shutting down the container.
+#   I used the name postgres-data but you can changed it to something else.
+    volumes:
+      - postgresql-book-store-volume:/var/lib/postgresql/data
+volumes: 
+  postgresql-book-store-volume:
+    external: true
